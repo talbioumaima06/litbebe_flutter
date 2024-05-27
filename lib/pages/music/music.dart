@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Music extends StatelessWidget {
   const Music({super.key});
+  static const route = '/music';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your App Name'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              // Implement sign out functionality here
+            },
+            icon: const Icon(
+              Icons.logout,
+              size: 30,
+            ),
+            color: Colors.white, // Change the color as per your design
+          ),
+        ],
+        backgroundColor: const Color(0xFFB3CEDB), // Set the background color of the app bar
       ),
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Hello👋',
-                style: GoogleFonts.raleway(
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
+            Image.asset(
+              'assets/images/temperature-removebg-preview.png',
+              height: 200,
+              width: 200,
             ),
           ],
         ),
