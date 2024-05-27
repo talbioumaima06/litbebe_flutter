@@ -3,18 +3,32 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Temperature extends StatelessWidget {
-  const Temperature({super.key});
+  const Temperature({Key? key}) : super(key: key);
   static const route = '/temperature';
 
   @override
   Widget build(BuildContext context) {
-    final DatabaseReference temperatureRef = FirebaseDatabase.instance.ref().child('temperature');
+    final DatabaseReference temperatureRef = FirebaseDatabase.instance.ref().child('/DHT_11/Temperature');
+    final DatabaseReference humidityRef = FirebaseDatabase.instance.ref().child('/DHT_11/Humidity');
     final message = ModalRoute.of(context)!.settings.arguments;
     print('messageeeeee: $message');
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your App Name'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              // Implement sign out functionality here
+            },
+            icon: const Icon(
+              Icons.logout,
+              size: 30,
+            ),
+            color: Colors.white, // Change the color as per your design
+          ),
+        ],
+        backgroundColor: const Color(0xFFB3CEDB), // Set the background color of the app bar
       ),
       body: SafeArea(
         child: Column(
@@ -46,9 +60,56 @@ class Temperature extends StatelessWidget {
                       fontSize: 20,
                     ),
                   );
-                } else if (snapshot.hasError) {
+                } else if (snapshot.hasData && snapshot.data!.snapshot.value != null) {
+                  double temperature = (snapshot.data!.snapshot.value as num).toDouble();
+                  Color textColor = temperature > 37 ? Colors.red : Colors.black;
+                  IconData? iconData = temperature > 37 ? Icons.warning : null;
+                  return Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Temperature: $temperature°C',
+                            style: GoogleFonts.raleway(
+                              textStyle: TextStyle(
+                                color: textColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          if (iconData != null) Icon(iconData, color: Colors.red),
+                        ],
+                      ),
+                    ],
+                  );
+                } else {
                   return const Text(
-                    'Error loading data',
+                    'No data available',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  );
+                }
+              },
+            ),
+            StreamBuilder<DatabaseEvent>(
+              stream: humidityRef.onValue,
+              builder: (context, snapshot) {
+                print('Connection State: ${snapshot.connectionState}');
+                print('Has Error: ${snapshot.hasError}');
+                if (snapshot.hasError) {
+                  print('Error: ${snapshot.error}');
+                }
+                print('Has Data: ${snapshot.hasData}');
+                print('Snapshot Data: ${snapshot.data?.snapshot.value}');
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Text(
+                    'Loading...',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -56,9 +117,9 @@ class Temperature extends StatelessWidget {
                     ),
                   );
                 } else if (snapshot.hasData && snapshot.data!.snapshot.value != null) {
-                  double temperature = (snapshot.data!.snapshot.value as num).toDouble();
+                  double humidity = (snapshot.data!.snapshot.value as num).toDouble();
                   return Text(
-                    'Temperature: $temperature°C',
+                    'Humidity: $humidity',
                     style: GoogleFonts.raleway(
                       textStyle: const TextStyle(
                         color: Colors.black,
@@ -78,46 +139,6 @@ class Temperature extends StatelessWidget {
                   );
                 }
               },
-            ),
-            Text(
-              'Humidity: 60.0%',
-              style: GoogleFonts.raleway(
-                textStyle: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Change Temperature'),
-                      content: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('You can switch on and off the climatisation sensor.'),
-                          SizedBox(height: 10),
-                          Text('Temperature Control:'),
-                        ],
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Close'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              child: const Text('Change Temperature'),
             ),
           ],
         ),

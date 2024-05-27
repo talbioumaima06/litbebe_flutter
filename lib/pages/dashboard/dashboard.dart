@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 //import '/auth/firebase_auth/auth_util.dart'; // Make sure to replace this with your actual import path
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  const Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +48,11 @@ class Dashboard extends StatelessWidget {
             text: 'Musique',
             route: '/music',
           ),
-          DashboardGridWidget(
-            image: 'assets/images/climatisation.jpg',
-            text: 'Climatisation',
-            route: '/climatisation',
-          ),
+          //DashboardGridWidget(
+          // image: 'assets/images/climatisation.jpg',
+          // text: 'Climatisation',
+          // route: '/climatisation',
+          //),
           DashboardGridWidget(
             image: 'assets/images/Bulb_Logo-removebg-preview.png',
             text: 'Lumiére',
@@ -80,11 +80,11 @@ class DashboardGridWidget extends StatelessWidget {
   final String route;
 
   const DashboardGridWidget({
-    Key? key,
+    super.key,
     required this.image,
     required this.text,
     required this.route,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
