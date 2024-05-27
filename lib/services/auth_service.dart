@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../pages/home/home.dart';
 import '../pages/login/login.dart';
 import '../pages/dashboard/dashboard.dart';
 
@@ -46,9 +45,6 @@ class AuthService {
         fontSize: 14.0,
       );
     }
-    catch(e){
-
-    }
 
   }
 
@@ -88,9 +84,6 @@ class AuthService {
         textColor: Colors.white,
         fontSize: 14.0,
       );
-    }
-    catch(e){
-
     }
 
   }

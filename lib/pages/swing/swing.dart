@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Swing extends StatelessWidget {
-  const Swing({Key? key}) : super(key: key);
+  const Swing({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your App Name'),
+        title: const Text('Your App Name'),
       ),
       body: SafeArea(
         child: Column(

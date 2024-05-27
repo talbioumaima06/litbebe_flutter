@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Temperature extends StatelessWidget {
-  const Temperature({Key? key}) : super(key: key);
+  const Temperature({super.key});
   static const route = '/temperature';
 
   @override
   Widget build(BuildContext context) {
     final DatabaseReference temperatureRef = FirebaseDatabase.instance.ref().child('temperature');
     final message = ModalRoute.of(context)!.settings.arguments;
-    print('messageeeeee: ${message}');
+    print('messageeeeee: $message');
 
     return Scaffold(
       appBar: AppBar(

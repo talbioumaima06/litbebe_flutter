@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Parametre extends StatelessWidget {
-  const Parametre({Key? key}) : super(key: key);
+  const Parametre({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your App Name'),
+        title: const Text('Your App Name'),
       ),
       body: SafeArea(
         child: Column(

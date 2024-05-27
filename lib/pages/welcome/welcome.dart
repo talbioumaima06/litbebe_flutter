@@ -3,7 +3,7 @@ import 'package:litbebe/pages/login/login.dart';
 import 'package:litbebe/pages/signup/signup.dart';
 
 class Welcome extends StatelessWidget {
-    Welcome({super.key});
+    const Welcome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class Welcome extends StatelessWidget {
                 children: [
                   // Your logo or decorative image
                   Container(
-                    margin: EdgeInsets.only(bottom: 20.0),
+                    margin: const EdgeInsets.only(bottom: 20.0),
                     child: Image.asset(
                       'assets/images/1000005708.jpg', // Replace with your image path
                       width: 150.0,
@@ -41,7 +41,7 @@ class Welcome extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Login()),
                       );
                     },
-                    child: Text('Login'),
+                    child: const Text('Login'),
                   ),
                   // Signup Button
                   ElevatedButton(
@@ -51,7 +51,7 @@ class Welcome extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Signup()),
                       );
                     },
-                    child: Text('Signup'),
+                    child: const Text('Signup'),
                   ),
                 ],
               ),

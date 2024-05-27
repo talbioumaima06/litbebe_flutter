@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
-      home: Welcome(),
+      home: const Welcome(),
       routes: {
         '/page1': (context) => const Home(),
         '/camera': (context) => const Camera(),
