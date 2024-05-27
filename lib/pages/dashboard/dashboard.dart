@@ -1,121 +1,138 @@
 import 'package:flutter/material.dart';
+//import '/auth/firebase_auth/auth_util.dart'; // Make sure to replace this with your actual import path
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+  const Dashboard({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> gridItems = [
-      {'image': 'assets/images/camera1.jpg', 'text': 'Camera', 'route': '/camera'},
-      {'image': 'assets/images/s0sy2_t.jpg', 'text': 'Temperature', 'route': '/temperature'},
-      {'image': 'assets/images/musique.jpg', 'text': 'Musique', 'route': '/music'},
-      {'image': 'assets/images/climatisation.jpg', 'text': 'Climatisation', 'route': '/climatisation'},
-      {'image': 'assets/images/Bulb_Logo-removebg-preview.png', 'text': 'Lumiére', 'route': '/lumiere'},
-      {'image': 'assets/images/swinng.jpg', 'text': 'Balancement', 'route': '/swing'},
-      {'image': 'assets/images/parametre.png', 'text': 'Paramétre', 'route': '/parametre'},
-    ];
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your App Name'),
+        title: Text('Your App Name'),
       ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Padding(
-            //   padding: const EdgeInsets.all(16.0),
-            //   child: Text(
-            //     'Hello👋',
-            //     style: GoogleFonts.raleway(
-            //       textStyle: const TextStyle(
-            //         color: Colors.black,
-            //         fontWeight: FontWeight.bold,
-            //         fontSize: 20,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16),
-            //   child: Text(
-            //     FirebaseAuth.instance.currentUser!.email!,
-            //     style: GoogleFonts.raleway(
-            //       textStyle: const TextStyle(
-            //         color: Colors.black,
-            //         fontWeight: FontWeight.bold,
-            //         fontSize: 20,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            const SizedBox(height: 30),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 3,
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16), // Adjust padding
-                childAspectRatio: 0.8, // Adjust aspect ratio to control item size
-                mainAxisSpacing: 8, // Add spacing between rows
-                crossAxisSpacing: 8, // Add spacing between columns
-                children: List.generate(
-                  gridItems.length,
-                  (index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, gridItems[index]['route']!);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              gridItems[index]['image']!,
-                              height: 80,
-                              width: 80,
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              gridItems[index]['text']!,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+      drawer: Drawer(
+        elevation: 16,
+        // Add your drawer content here
+      ),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            height: 62,
+            decoration: BoxDecoration(
+              color: const Color(0xFFB3CEDB),
             ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    // Implement sign out functionality here
+                  },
+                  icon: Icon(
+                    Icons.logout,
+                    size: 30,
+                  ),
+                  color: Colors.white, // Change the color as per your design
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: 2,
+              padding: EdgeInsets.all(10),
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              children: [
+                DashboardGridWidget(
+                  image: 'assets/images/camera1.jpg',
+                  text: 'Camera',
+                  route: '/camera',
+                ),
+                DashboardGridWidget(
+                  image: 'assets/images/s0sy2_t.jpg',
+                  text: 'Temperature',
+                  route: '/temperature',
+                ),
+                DashboardGridWidget(
+                  image: 'assets/images/musique.jpg',
+                  text: 'Musique',
+                  route: '/music',
+                ),
+                DashboardGridWidget(
+                  image: 'assets/images/climatisation.jpg',
+                  text: 'Climatisation',
+                  route: '/climatisation',
+                ),
+                DashboardGridWidget(
+                  image: 'assets/images/Bulb_Logo-removebg-preview.png',
+                  text: 'Lumiére',
+                  route: '/lumiere',
+                ),
+                DashboardGridWidget(
+                  image: 'assets/images/swinng.jpg',
+                  text: 'Balancement',
+                  route: '/swing',
+                ),
+                DashboardGridWidget(
+                  image: 'assets/images/parametre.png',
+                  text: 'Paramétre',
+                  route: '/parametre',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-            // Padding(
-            //   padding: const EdgeInsets.all(16.0),
-            //   child: ElevatedButton(
-            //     style: ElevatedButton.styleFrom(
-            //       backgroundColor: const Color(0xff0D6EFD),
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(14),
-            //       ),
-            //       minimumSize: const Size(double.infinity, 60),
-            //       elevation: 0,
-            //     ),
-            //     onPressed: () async {
-            //       await AuthService().signout(context: context);
-            //     },
-            //     child: const Text("Sign Out"),
-            //   ),
-            // ),
+class DashboardGridWidget extends StatelessWidget {
+  final String image;
+  final String text;
+  final String route;
+
+  const DashboardGridWidget({
+    Key? key,
+    required this.image,
+    required this.text,
+    required this.route,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, route);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5), // Removed const
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              image,
+              height: 80,
+              width: 80,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              text,
+              style: TextStyle(fontSize: 16),
+            ),
           ],
         ),
       ),

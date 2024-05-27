@@ -1,63 +1,116 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:litbebe/pages/login/login.dart';
 import 'package:litbebe/pages/signup/signup.dart';
 
 class Welcome extends StatelessWidget {
-    const Welcome({super.key});
+  const Welcome({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background Image
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/baby_logo1-removebg-preview.png', // Replace with your image path
-              fit: BoxFit.cover,
-            ),
+      backgroundColor: Color(0xFFD3EED2),
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: Color(0xFFB3CEDB),
           ),
-          // Overlay with buttons
-          Positioned.fill(
-            child: Container(
-              color: Colors.black.withOpacity(0.5), // Adjust opacity as desired
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Your logo or decorative image
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 20.0),
-                    child: Image.asset(
-                      'assets/images/1000005708.jpg', // Replace with your image path
-                      width: 150.0,
-                      height: 150.0,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  'assets/images/baby_logo1-removebg-preview.png',
+                  width: 500,
+                  height: 428,
+                  fit: BoxFit.fill,
+                  alignment: Alignment.center,
+                ),
+              ),
+              Flexible(
+                flex: 3,
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                  child: Text(
+                    'Bienvenue',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.roboto(
+                      color: Color(0xFF6E5435),
+                      fontSize: 70,
+                      letterSpacing: 0,
                     ),
                   ),
-                  // Login Button
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Login()),
-                      );
-                    },
-                    child: const Text('Login'),
-                  ),
-                  // Signup Button
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Signup()),
-                      );
-                    },
-                    child: const Text('Signup'),
-                  ),
-                ],
+                ),
               ),
-            ),
+              Flexible(
+                child: Align(
+                  alignment: AlignmentDirectional(0, -1),
+                  child: SizedBox(
+                    width: 303,
+                    height: 63,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor : Color(0xFFFBF9F9),
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        elevation: 3,
+                        textStyle: GoogleFonts.roboto(
+                          color: Color(0xFF6E5435),
+                          fontSize: 30,
+                          letterSpacing: 0,
+                        ),
+                      ),
+                      child: const Text('se connecter'),
+                    ),
+                  ),
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                child: Align(
+                  alignment: AlignmentDirectional(0, -1),
+                  child: SizedBox(
+                    width: 303,
+                    height: 63,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Signup()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor : Color(0xFFFBF9F9),
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        elevation: 3,
+                        textStyle: GoogleFonts.roboto(
+                          color: Color(0xFF6E5435),
+                          fontSize: 30,
+                          letterSpacing: 0,
+                        ),
+                      ),
+                      child: const Text('s\'inscrire'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
