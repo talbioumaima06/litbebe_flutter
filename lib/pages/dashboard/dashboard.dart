@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 //import '/auth/firebase_auth/auth_util.dart'; // Make sure to replace this with your actual import path
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key});
+ const Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your App Name'),
+        title: const Text('Your App Name'),
       ),
-      drawer: Drawer(
+      drawer: const Drawer(
         elevation: 16,
         // Add your drawer content here
       ),
@@ -19,8 +19,8 @@ class Dashboard extends StatelessWidget {
           Container(
             width: double.infinity,
             height: 62,
-            decoration: BoxDecoration(
-              color: const Color(0xFFB3CEDB),
+            decoration: const BoxDecoration(
+              color: Color(0xFFB3CEDB),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -29,7 +29,7 @@ class Dashboard extends StatelessWidget {
                   onPressed: () async {
                     // Implement sign out functionality here
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.logout,
                     size: 30,
                   ),
@@ -41,10 +41,10 @@ class Dashboard extends StatelessWidget {
           Expanded(
             child: GridView.count(
               crossAxisCount: 2,
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
-              children: [
+              children: const [
                 DashboardGridWidget(
                   image: 'assets/images/camera1.jpg',
                   text: 'Camera',
@@ -95,11 +95,11 @@ class DashboardGridWidget extends StatelessWidget {
   final String route;
 
   const DashboardGridWidget({
-    Key? key,
+    super.key,
     required this.image,
     required this.text,
     required this.route,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class DashboardGridWidget extends StatelessWidget {
               color: Colors.grey.withOpacity(0.5), // Removed const
               spreadRadius: 5,
               blurRadius: 7,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -131,7 +131,7 @@ class DashboardGridWidget extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               text,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
           ],
         ),

@@ -9,12 +9,12 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD3EED2),
+      backgroundColor: const Color(0xFFD3EED2),
       body: SafeArea(
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xFFB3CEDB),
           ),
           child: Column(
@@ -33,12 +33,12 @@ class Welcome extends StatelessWidget {
               Flexible(
                 flex: 3,
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                   child: Text(
                     'Bienvenue',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.roboto(
-                      color: Color(0xFF6E5435),
+                      color: const Color(0xFF6E5435),
                       fontSize: 70,
                       letterSpacing: 0,
                     ),
@@ -47,7 +47,7 @@ class Welcome extends StatelessWidget {
               ),
               Flexible(
                 child: Align(
-                  alignment: AlignmentDirectional(0, -1),
+                  alignment: const AlignmentDirectional(0, -1),
                   child: SizedBox(
                     width: 303,
                     height: 63,
@@ -59,14 +59,14 @@ class Welcome extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor : Color(0xFFFBF9F9),
-                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        backgroundColor : const Color(0xFFFBF9F9),
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                         elevation: 3,
                         textStyle: GoogleFonts.roboto(
-                          color: Color(0xFF6E5435),
+                          color: const Color(0xFF6E5435),
                           fontSize: 30,
                           letterSpacing: 0,
                         ),
@@ -79,7 +79,7 @@ class Welcome extends StatelessWidget {
               Flexible(
                 flex: 1,
                 child: Align(
-                  alignment: AlignmentDirectional(0, -1),
+                  alignment: const AlignmentDirectional(0, -1),
                   child: SizedBox(
                     width: 303,
                     height: 63,
@@ -91,14 +91,14 @@ class Welcome extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor : Color(0xFFFBF9F9),
-                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        backgroundColor : const Color(0xFFFBF9F9),
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                         elevation: 3,
                         textStyle: GoogleFonts.roboto(
-                          color: Color(0xFF6E5435),
+                          color: const Color(0xFF6E5435),
                           fontSize: 30,
                           letterSpacing: 0,
                         ),

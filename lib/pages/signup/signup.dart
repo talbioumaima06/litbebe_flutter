@@ -3,7 +3,7 @@ import 'package:litbebe/pages/login/login.dart';
 import 'package:litbebe/services/auth_service.dart';
 
 class Signup extends StatelessWidget {
-  Signup({Key? key}) : super(key: key);
+  Signup({super.key});
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -11,7 +11,7 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFB3CEDB),
+      backgroundColor: const Color(0xFFB3CEDB),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -49,7 +49,7 @@ class Signup extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               'Create an Account',
               style: TextStyle(
                 color: Color(0xFF6E5435),
@@ -71,7 +71,7 @@ class Signup extends StatelessWidget {
                     decoration: InputDecoration(
                       filled: true,
                       hintText: 'Email Address',
-                      fillColor: Color(0xFFFBF9F9),
+                      fillColor: const Color(0xFFFBF9F9),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14),
                         borderSide: BorderSide.none,
@@ -85,7 +85,7 @@ class Signup extends StatelessWidget {
                     decoration: InputDecoration(
                       filled: true,
                       hintText: 'Password',
-                      fillColor: Color(0xFFFBF9F9),
+                      fillColor: const Color(0xFFFBF9F9),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14),
                         borderSide: BorderSide.none,
@@ -102,13 +102,13 @@ class Signup extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff0D6EFD),
+                      backgroundColor: const Color(0xff0D6EFD),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      minimumSize: Size(double.infinity, 60),
+                      minimumSize: const Size(double.infinity, 60),
                     ),
-                    child: Text('Sign Up'),
+                    child: const Text('Sign Up'),
                   ),
                   const SizedBox(height: 10),
                   TextButton(
@@ -120,7 +120,7 @@ class Signup extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Already have an account? Log In',
                       style: TextStyle(
                         color: Color(0xFF6E5435),
