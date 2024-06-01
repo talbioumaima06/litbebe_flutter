@@ -16,17 +16,17 @@ class Temperature extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your App Name'),
-        actions: [
-          IconButton(
-            onPressed: () async {
+        actions: const [
+          //IconButton(
+            //onPressed: () async {
               // Implement sign out functionality here
-            },
-            icon: const Icon(
-              Icons.logout,
-              size: 30,
-            ),
-            color: Colors.white, // Change the color as per your design
-          ),
+            //},
+            //icon: const Icon(
+            //  Icons.logout,
+             // size: 30,
+            //),
+            //color: Colors.white, // Change the color as per your design
+          //),
         ],
         backgroundColor: const Color(0xFFB3CEDB), // Set the background color of the app bar
       ),

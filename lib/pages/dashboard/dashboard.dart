@@ -9,6 +9,7 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your App Name'),
+        automaticallyImplyLeading: false, // This removes the back button
         actions: [
           IconButton(
             onPressed: () async {
