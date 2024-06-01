@@ -89,14 +89,14 @@ class Parametre extends StatelessWidget {
                     ListTile(
                       leading: Icon(Icons.email),
                       title: GestureDetector(
-                        onTap: _launchEmail, // Call the static method directly
+                        onTap: _launchEmail, // Use the synchronous function
                         child: Text('support@example.com'),
                       ),
                     ),
                     ListTile(
                       leading: Icon(Icons.phone),
                       title: GestureDetector(
-                        onTap: _launchPhone, // Call the static method directly
+                        onTap: () => _makePhoneCall('1234567890'), // Wrap in a synchronous function
                         child: Text('+1234567890'),
                       ),
                     ),
@@ -110,14 +110,43 @@ class Parametre extends StatelessWidget {
     );
   }
 
-  // Static method to launch email
-  static void _launchEmail() async {
-    const email = 'mailto:support@example.com';
+  // Synchronous function to launch email
+  void _launchEmail() {
+    _sendEmail('support@example.com'); // Call the asynchronous method
   }
 
-  // Static method to launch phone call
-  static void _launchPhone() async {
-    const phoneNumber = '+1234567890';
-    final Uri phoneUri = Uri.parse('tel:$phoneNumber');
+  // Asynchronous method to launch email
+  Future<void> _sendEmail(String email) async {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: email,
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Support Request'
+      }),
+    );
+
+    await launchUrl(emailLaunchUri);
+  }
+
+  // Utility method to encode query parameters
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((MapEntry<String, String> e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
+  // Synchronous function to make a phone call
+  void _makePhoneCall(String phoneNumber) {
+    _callPhoneNumber(phoneNumber); // Call the asynchronous method
+  }
+
+  // Asynchronous method to make a phone call
+  Future<void> _callPhoneNumber(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
   }
 }
