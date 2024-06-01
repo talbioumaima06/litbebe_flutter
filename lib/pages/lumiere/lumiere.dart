@@ -10,13 +10,16 @@ class Lumiere extends StatefulWidget {
 }
 
 class _LumiereState extends State<Lumiere> {
-  late DatabaseReference lightRef;
-  late Color currentColor = Colors.white; // Default color
+  late DatabaseReference rgbRef;
+  late DatabaseReference statusRef;
+  Color currentColor = Colors.white; // Default color
+  bool isLightOn = false; // Default status
 
   @override
   void initState() {
     super.initState();
-    lightRef = FirebaseDatabase.instance.ref().child('/LED/RGB'); // Adjust this path accordingly
+    rgbRef = FirebaseDatabase.instance.ref().child('LED/RGB');
+    statusRef = FirebaseDatabase.instance.ref().child('LED/status');
   }
 
   @override
@@ -54,16 +57,8 @@ class _LumiereState extends State<Lumiere> {
               ),
             ),
             StreamBuilder<DatabaseEvent>(
-              stream: lightRef.onValue,
+              stream: rgbRef.onValue,
               builder: (context, snapshot) {
-                print('Connection State: ${snapshot.connectionState}');
-                print('Has Error: ${snapshot.hasError}');
-                if (snapshot.hasError) {
-                  print('Error: ${snapshot.error}');
-                }
-                print('Has Data: ${snapshot.hasData}');
-                print('Snapshot Data: ${snapshot.data?.snapshot.value}');
-
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Text(
                     'Loading...',
@@ -74,7 +69,47 @@ class _LumiereState extends State<Lumiere> {
                     ),
                   );
                 } else if (snapshot.hasData && snapshot.data!.snapshot.value != null) {
-                  bool isLightOn = snapshot.data!.snapshot.value == 1; // Assuming 1 means light is on
+                  String rgb = snapshot.data!.snapshot.value as String;
+                  List<String> rgbValues = rgb.split(',');
+                  if (rgbValues.length == 3) {
+                    try {
+                      int red = int.parse(rgbValues[0]);
+                      int green = int.parse(rgbValues[1]);
+                      int blue = int.parse(rgbValues[2]);
+                      currentColor = Color.fromRGBO(red, green, blue, 1.0);
+                    } catch (e) {
+                      print('Error parsing RGB values: $e');
+                    }
+                  } else {
+                    print('Invalid RGB format: $rgb');
+                  }
+                  return Container();
+                } else {
+                  return const Text(
+                    'No data available',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  );
+                }
+              },
+            ),
+            StreamBuilder<DatabaseEvent>(
+              stream: statusRef.onValue,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Text(
+                    'Loading...',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  );
+                } else if (snapshot.hasData && snapshot.data!.snapshot.value != null) {
+                  isLightOn = snapshot.data!.snapshot.value == 1;
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -89,14 +124,14 @@ class _LumiereState extends State<Lumiere> {
                       Switch(
                         value: isLightOn,
                         onChanged: (newValue) {
-                          lightRef.set(newValue ? 1 : 0); // Update the database with new value
+                          statusRef.set(newValue ? 1 : 0);
                         },
                       ),
                     ],
                   );
                 } else {
                   return const Text(
-                    'No data available',
+                    'No data available for status',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -151,6 +186,8 @@ class _LumiereState extends State<Lumiere> {
               onColorChanged: (color) {
                 setState(() {
                   currentColor = color;
+                  String rgb = '${color.red},${color.green},${color.blue}';
+                  rgbRef.set(rgb);
                 });
               },
               showLabel: true,
