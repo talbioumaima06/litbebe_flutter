@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:litbebe/services/auth_service.dart';
 
 class Parametre extends StatelessWidget {
   const Parametre({super.key});
@@ -12,7 +13,7 @@ class Parametre extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              // Implement sign out functionality here
+              await AuthService().signout(context: context);
             },
             icon: const Icon(
               Icons.logout,

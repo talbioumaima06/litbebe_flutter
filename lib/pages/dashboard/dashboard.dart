@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import '/auth/firebase_auth/auth_util.dart'; // Make sure to replace this with your actual import path
+import 'package:litbebe/services/auth_service.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -13,7 +13,7 @@ class Dashboard extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              // Implement sign out functionality here
+              await AuthService().signout(context: context);
             },
             icon: const Icon(
               Icons.logout,
