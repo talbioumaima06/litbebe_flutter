@@ -44,7 +44,13 @@ class _LumiereState extends State<Lumiere> {
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+             Image.asset(
+              'assets/images/Bulb_Logo-removebg-preview.png',
+              height: 200,
+              width: 200,
+            ),
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
