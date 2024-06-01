@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Temperature extends StatelessWidget {
-  const Temperature({Key? key}) : super(key: key);
+  const Temperature({super.key});
   static const route = '/temperature';
 
   @override

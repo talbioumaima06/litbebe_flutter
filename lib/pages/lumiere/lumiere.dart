@@ -3,7 +3,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Lumiere extends StatefulWidget {
-  const Lumiere({Key? key}) : super(key: key);
+  const Lumiere({super.key});
 
   @override
   _LumiereState createState() => _LumiereState();
@@ -42,8 +42,8 @@ class _LumiereState extends State<Lumiere> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 'Light Control',
                 style: TextStyle(
@@ -80,7 +80,7 @@ class _LumiereState extends State<Lumiere> {
                     children: [
                       Text(
                         'Light is ${isLightOn ? 'On' : 'Off'}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -107,28 +107,28 @@ class _LumiereState extends State<Lumiere> {
               },
             ),
             Container(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Select LED Color:',
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 20.0),
+                  const SizedBox(width: 20.0),
                   CircleAvatar(
                     backgroundColor: currentColor,
                     radius: 20.0,
                   ),
-                  SizedBox(width: 20.0),
+                  const SizedBox(width: 20.0),
                   ElevatedButton(
                     onPressed: () {
                       _showColorPicker(context);
                     },
-                    child: Text('Pick Color'),
+                    child: const Text('Pick Color'),
                   ),
                 ],
               ),
@@ -144,7 +144,7 @@ class _LumiereState extends State<Lumiere> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Pick a color'),
+          title: const Text('Pick a color'),
           content: SingleChildScrollView(
             child: ColorPicker(
               pickerColor: currentColor,
@@ -162,7 +162,7 @@ class _LumiereState extends State<Lumiere> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Done'),
+              child: const Text('Done'),
             ),
           ],
         );
