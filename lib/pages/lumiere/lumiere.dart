@@ -28,16 +28,16 @@ class _LumiereState extends State<Lumiere> {
       appBar: AppBar(
         title: const Text('Your App Name'),
         actions: const [
-          //IconButton(
-            //onPressed: () async {
-              // Implement sign out functionality here
-            //},
-            //icon: const Icon(
-            //  Icons.logout,
-             // size: 30,
-            //),
-            //color: Colors.white, // Change the color as per your design
-          //),
+          // IconButton(
+          //   onPressed: () async {
+          //     // Implement sign out functionality here
+          //   },
+          //   icon: const Icon(
+          //     Icons.logout,
+          //     size: 30,
+          //   ),
+          //   color: Colors.white, // Change the color as per your design
+          // ),
         ],
         backgroundColor: const Color(0xFFB3CEDB), // Set the background color of the app bar
       ),
@@ -76,15 +76,27 @@ class _LumiereState extends State<Lumiere> {
                       int red = int.parse(rgbValues[0]);
                       int green = int.parse(rgbValues[1]);
                       int blue = int.parse(rgbValues[2]);
-                      currentColor = Color.fromRGBO(red, green, blue, 1.0);
+                      Color newColor = Color.fromRGBO(red, green, blue, 1.0);
+                      // Only update state if the color has actually changed
+                      if (newColor != currentColor) {
+                        Future.microtask(() {
+                          setState(() {
+                            currentColor = newColor;
+                          });
+                        });
+                      }
+                      print('RGB values: $red, $green, $blue');
                     } catch (e) {
                       print('Error parsing RGB values: $e');
                     }
                   } else {
                     print('Invalid RGB format: $rgb');
                   }
-                  return Container();
+                  return Container(
+                    height: 0, // Adjust as needed
+                  );
                 } else {
+                  print('No data available for RGB');
                   return const Text(
                     'No data available',
                     style: TextStyle(
@@ -109,7 +121,15 @@ class _LumiereState extends State<Lumiere> {
                     ),
                   );
                 } else if (snapshot.hasData && snapshot.data!.snapshot.value != null) {
-                  isLightOn = snapshot.data!.snapshot.value == 1;
+                  bool newStatus = snapshot.data!.snapshot.value == 1;
+                  // Only update state if the status has actually changed
+                  if (newStatus != isLightOn) {
+                    Future.microtask(() {
+                      setState(() {
+                        isLightOn = newStatus;
+                      });
+                    });
+                  }
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -130,6 +150,7 @@ class _LumiereState extends State<Lumiere> {
                     ],
                   );
                 } else {
+                  print('No data available for status');
                   return const Text(
                     'No data available for status',
                     style: TextStyle(
