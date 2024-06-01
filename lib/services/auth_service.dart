@@ -101,4 +101,72 @@ class AuthService {
         )
       );
   }
+
+  Future<void> updatePassword({
+  required String oldPassword,
+  required String newPassword,
+  required BuildContext context,
+  }) async {
+    try {
+      // Get the current user
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        // Reauthenticate the user with their old password
+        AuthCredential credential = EmailAuthProvider.credential(
+          email: user.email!,
+          password: oldPassword,
+        );
+        await user.reauthenticateWithCredential(credential);
+
+        // Update the password
+        await user.updatePassword(newPassword);
+
+        // Show a success message
+        Fluttertoast.showToast(
+          msg: 'Password updated successfully',
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.SNACKBAR,
+          backgroundColor: Colors.black54,
+          textColor: Colors.white,
+          fontSize: 14.0,
+        );
+
+        // Delay for better user experience
+        await Future.delayed(const Duration(seconds: 1));
+
+        // Navigate to dashboard or any other screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const Dashboard()
+          )
+        );
+      }
+    } catch (e) {
+      // Handle errors
+      String message = '';
+      if (e is FirebaseAuthException) {
+        if (e.code == 'wrong-password') {
+          message = 'The old password is incorrect.';
+        } else if (e.code == 'weak-password') {
+          message = 'The new password provided is too weak.';
+        } else {
+          message = 'Failed to update password. Please try again later.';
+        }
+      } else {
+        message = 'An unexpected error occurred. Please try again later.';
+      }
+
+      // Show an error message
+      Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        backgroundColor: Colors.black54,
+        textColor: Colors.white,
+        fontSize: 14.0,
+      );
+    }
+  }
 }
