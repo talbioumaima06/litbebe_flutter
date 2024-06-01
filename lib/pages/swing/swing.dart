@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-class Swing extends StatelessWidget {
+class Swing extends StatefulWidget {
   const Swing({super.key});
   static const route = '/swing';
+
+  @override
+  _SwingState createState() => _SwingState();
+}
+
+class _SwingState extends State<Swing> {
+  final DatabaseReference _databaseReference = FirebaseDatabase.instance.ref().child('Swings');
+  bool _isSwingOn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _databaseReference.onValue.listen((event) {
+      final data = event.snapshot.value;
+      if (data != null && data is bool) {
+        setState(() {
+          _isSwingOn = data;
+        });
+      }
+    });
+  }
+
+  void _toggleSwitch(bool value) {
+    _databaseReference.set(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +55,14 @@ class Swing extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
-              'assets/images/temperature-removebg-preview.png',
+              'assets/images/swinng.jpg',
               height: 200,
               width: 200,
+            ),
+            SwitchListTile(
+              title: const Text('Swing Status'),
+              value: _isSwingOn,
+              onChanged: _toggleSwitch,
             ),
           ],
         ),

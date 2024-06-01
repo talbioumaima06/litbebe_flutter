@@ -23,10 +23,10 @@ class Dashboard extends StatelessWidget {
         ],
         backgroundColor: const Color(0xFFB3CEDB), // Set the background color of the app bar
       ),
-      drawer: const Drawer(
-        elevation: 16,
+      //drawer: const Drawer(
+      //  elevation: 16,
         // Add your drawer content here
-      ),
+      //),
       body: GridView.count(
         crossAxisCount: 2,
         padding: const EdgeInsets.all(10),
