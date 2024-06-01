@@ -27,8 +27,7 @@ class Parametre extends StatelessWidget {
             color: Colors.white, // Change the color as per your design
           ),
         ],
-        backgroundColor:
-            const Color(0xFFB3CEDB), // Set the background color of the app bar
+        backgroundColor: const Color(0xFFB3CEDB), // Set the background color of the app bar
       ),
       body: SafeArea(
         child: Column(
@@ -86,6 +85,21 @@ class Parametre extends StatelessWidget {
                       },
                       child: const Text('Update Password'),
                     ),
+                    const SizedBox(height: 20),
+                    ListTile(
+                      leading: Icon(Icons.email),
+                      title: GestureDetector(
+                        onTap: _launchEmail, // Call the static method directly
+                        child: Text('support@example.com'),
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.phone),
+                      title: GestureDetector(
+                        onTap: _launchPhone, // Call the static method directly
+                        child: Text('+1234567890'),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -94,5 +108,16 @@ class Parametre extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // Static method to launch email
+  static void _launchEmail() async {
+    const email = 'mailto:support@example.com';
+  }
+
+  // Static method to launch phone call
+  static void _launchPhone() async {
+    const phoneNumber = '+1234567890';
+    final Uri phoneUri = Uri.parse('tel:$phoneNumber');
   }
 }
