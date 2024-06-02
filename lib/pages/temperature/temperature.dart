@@ -8,8 +8,8 @@ class Temperature extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DatabaseReference temperatureRef = FirebaseDatabase.instance.ref().child('/DHT_11/Temperature');
-    final DatabaseReference humidityRef = FirebaseDatabase.instance.ref().child('/DHT_11/Humidity');
+    final DatabaseReference temperatureRef = FirebaseDatabase.instance.ref().child('/Sensor/DHT_11/Temperature');
+    final DatabaseReference humidityRef = FirebaseDatabase.instance.ref().child('/Sensor/DHT_11/Humidity');
     final message = ModalRoute.of(context)!.settings.arguments;
     print('messageeeeee: $message');
 
