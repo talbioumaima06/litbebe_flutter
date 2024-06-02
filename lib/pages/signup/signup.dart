@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:litbebe/pages/login/login.dart';
 import 'package:litbebe/services/auth_service.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Signup extends StatelessWidget {
   Signup({super.key});
@@ -102,11 +103,17 @@ class Signup extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff0D6EFD),
+                      backgroundColor : const Color(0xFFFBF9F9),
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      minimumSize: const Size(double.infinity, 60),
+                      elevation: 3,
+                      textStyle: GoogleFonts.roboto(
+                        color: const Color(0xFF6E5435),
+                        fontSize: 30,
+                        letterSpacing: 0,
+                      ),
                     ),
                     child: const Text('Sign Up'),
                   ),
