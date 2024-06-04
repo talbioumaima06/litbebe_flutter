@@ -14,7 +14,7 @@ class Parametre extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your App Name'),
+        title: const Text('Smart Cradle'),
         actions: [
           IconButton(
             onPressed: () async {
@@ -35,7 +35,7 @@ class Parametre extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
-              'assets/images/temperature-removebg-preview.png',
+              'assets/images/parametre.png',
               height: 200,
               width: 200,
             ),
@@ -49,11 +49,11 @@ class Parametre extends StatelessWidget {
                       controller: _oldPasswordController,
                       obscureText: true,
                       decoration: const InputDecoration(
-                        labelText: 'Old Password',
+                        labelText: 'Ancien mot de passe',
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your old password.';
+                          return 'Veuillez entrer votre ancien mot de passe.';
                         }
                         return null;
                       },
@@ -62,11 +62,11 @@ class Parametre extends StatelessWidget {
                       controller: _newPasswordController,
                       obscureText: true,
                       decoration: const InputDecoration(
-                        labelText: 'New Password',
+                        labelText: 'Nouveau mot de passe',
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your new password.';
+                          return 'Veuillez entrer votre nouveau mot de passe.';
                         }
                         return null;
                       },
@@ -83,7 +83,7 @@ class Parametre extends StatelessWidget {
                           );
                         }
                       },
-                      child: const Text('Update Password'),
+                      child: const Text('Mettre à jour le mot de passe'),
                     ),
                     const SizedBox(height: 20),
                     ListTile(

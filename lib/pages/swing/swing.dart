@@ -34,7 +34,7 @@ class _SwingState extends State<Swing> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your App Name'),
+        title: const Text('Smart Cradle'),
         actions: const [
           //IconButton(
             //onPressed: () async {
@@ -60,7 +60,7 @@ class _SwingState extends State<Swing> {
               width: 200,
             ),
             SwitchListTile(
-              title: const Text('Swing Status'),
+              title: const Text('Statut du Balencement'),
               value: _isSwingOn,
               onChanged: _toggleSwitch,
             ),

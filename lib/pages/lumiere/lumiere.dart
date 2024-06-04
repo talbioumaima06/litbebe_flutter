@@ -26,7 +26,7 @@ class _LumiereState extends State<Lumiere> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your App Name'),
+        title: const Text('Smart Cradle'),
         actions: const [
           // IconButton(
           //   onPressed: () async {
@@ -54,7 +54,7 @@ class _LumiereState extends State<Lumiere> {
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'Light Control',
+                'Contrôle de la lumière',
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -67,7 +67,7 @@ class _LumiereState extends State<Lumiere> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Text(
-                    'Loading...',
+                    'Connextion...',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -119,7 +119,7 @@ class _LumiereState extends State<Lumiere> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Text(
-                    'Loading...',
+                    'Chargement...',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -140,7 +140,7 @@ class _LumiereState extends State<Lumiere> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Light is ${isLightOn ? 'On' : 'Off'}',
+                        'La lumière est ${isLightOn ? 'On' : 'Off'}',
                         style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -174,7 +174,7 @@ class _LumiereState extends State<Lumiere> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Select LED Color:',
+                    'Couleur des LED:',
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
@@ -190,7 +190,7 @@ class _LumiereState extends State<Lumiere> {
                     onPressed: () {
                       _showColorPicker(context);
                     },
-                    child: const Text('Pick Color'),
+                    child: const Text('Changer'),
                   ),
                 ],
               ),
@@ -206,7 +206,7 @@ class _LumiereState extends State<Lumiere> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Pick a color'),
+          title: const Text('Choisissez la couleur'),
           content: SingleChildScrollView(
             child: ColorPicker(
               pickerColor: currentColor,
@@ -226,7 +226,7 @@ class _LumiereState extends State<Lumiere> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Done'),
+              child: const Text('OK'),
             ),
           ],
         );

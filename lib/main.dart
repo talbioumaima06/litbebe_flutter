@@ -11,6 +11,7 @@ import '../pages/lumiere/lumiere.dart';
 import '../pages/swing/swing.dart';
 import '../pages/parametre/parametre.dart';
 import '../api/firebase_api.dart';
+import '../pages/webviewcontainer/WebViewContainer.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         '/lumiere': (context) =>const  Lumiere(),
         '/swing': (context) => const Swing(),
         '/parametre': (context) => const Parametre(),
+        '/webviewtest': (context) => const WebViewContainer(),
         // Add more routes for each page
       },
     );

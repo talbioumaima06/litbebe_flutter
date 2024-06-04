@@ -8,7 +8,7 @@ class Climatisation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your App Name'),
+        title: const Text('Smart Cradle'),
       ),
       body: SafeArea(
         child: Column(

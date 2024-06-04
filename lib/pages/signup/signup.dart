@@ -51,7 +51,7 @@ class Signup extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Create an Account',
+              "S'inscrire",
               style: TextStyle(
                 color: Color(0xFF6E5435),
                 fontSize: 40,
@@ -71,7 +71,7 @@ class Signup extends StatelessWidget {
                     controller: _emailController,
                     decoration: InputDecoration(
                       filled: true,
-                      hintText: 'Email Address',
+                      hintText: 'Adresse e-mail',
                       fillColor: const Color(0xFFFBF9F9),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14),
@@ -85,7 +85,7 @@ class Signup extends StatelessWidget {
                     controller: _passwordController,
                     decoration: InputDecoration(
                       filled: true,
-                      hintText: 'Password',
+                      hintText: 'Mot de passe',
                       fillColor: const Color(0xFFFBF9F9),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14),
@@ -115,7 +115,7 @@ class Signup extends StatelessWidget {
                         letterSpacing: 0,
                       ),
                     ),
-                    child: const Text('Sign Up'),
+                    child: const Text("S'inscrire"),
                   ),
                   const SizedBox(height: 10),
                   TextButton(
@@ -128,7 +128,7 @@ class Signup extends StatelessWidget {
                       );
                     },
                     child: const Text(
-                      'Already have an account? Log In',
+                      'Vous avez déja un compte? se connecter',
                       style: TextStyle(
                         color: Color(0xFF6E5435),
                       ),

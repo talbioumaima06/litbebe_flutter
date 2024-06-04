@@ -8,7 +8,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your App Name'),
+        title: const Text('Smart Cradle'),
         automaticallyImplyLeading: false, // This removes the back button
         actions: [
           IconButton(
@@ -41,7 +41,7 @@ class Dashboard extends StatelessWidget {
           ),
           DashboardGridWidget(
             image: 'assets/images/s0sy2_t.jpg',
-            text: 'Temperature',
+            text: 'Température',
             route: '/temperature',
           ),
           DashboardGridWidget(

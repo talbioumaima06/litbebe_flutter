@@ -15,7 +15,7 @@ class Temperature extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your App Name'),
+        title: const Text('Smart Cradle'),
         actions: const [
           //IconButton(
             //onPressed: () async {
@@ -53,7 +53,7 @@ class Temperature extends StatelessWidget {
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Text(
-                    'Loading...',
+                    'Chargement...',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class Temperature extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Temperature: $temperature°C',
+                            'Température: $temperature°C',
                             style: GoogleFonts.raleway(
                               textStyle: TextStyle(
                                 color: textColor,
@@ -109,7 +109,7 @@ class Temperature extends StatelessWidget {
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Text(
-                    'Loading...',
+                    'Chargement...',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -119,7 +119,7 @@ class Temperature extends StatelessWidget {
                 } else if (snapshot.hasData && snapshot.data!.snapshot.value != null) {
                   double humidity = (snapshot.data!.snapshot.value as num).toDouble();
                   return Text(
-                    'Humidity: $humidity',
+                    'Humidité: $humidity',
                     style: GoogleFonts.raleway(
                       textStyle: const TextStyle(
                         color: Colors.black,
