@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mjpeg/flutter_mjpeg.dart';
+import 'package:url_launcher/url_launcher.dart';
+final Uri _url=Uri.parse('http://192.168.1.26');
 
 class Camera extends StatelessWidget {
   const Camera({super.key});
   static const route = '/camera';
+
+  Future<void> _launchUrl()async {
+    if (!await launchUrl(_url)){
+      throw 'Could not launch $_url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +31,14 @@ class Camera extends StatelessWidget {
         ],
         backgroundColor: const Color(0xFFB3CEDB), // Set the background color of the app bar
       ),
-      body: const SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Mjpeg(
-              isLive: true, // Assuming the stream should start immediately
-              stream: 'http://192.168.1.26',
-            ),
-          ],
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: double.infinity,
+        child: TextButton(
+          onPressed: _launchUrl,
+          child: 
+          Text("Cliquez ici pour surveiller votre bébé",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color:Colors.indigo[900]),),
         ),
       ),
     );
