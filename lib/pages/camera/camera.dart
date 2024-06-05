@@ -31,7 +31,7 @@ class Camera extends StatelessWidget {
           children: [
             Mjpeg(
               isLive: true, // Assuming the stream should start immediately
-              stream: 'http://184.817.12.128/stream',
+              stream: 'http://192.168.1.26',
             ),
           ],
         ),
