@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:firebase_database/firebase_database.dart';
 
 class Music extends StatefulWidget {
   const Music({super.key});
@@ -13,53 +11,33 @@ class Music extends StatefulWidget {
 
 class _MusicState extends State<Music> {
   String? dropdownValue;
-  String? state;
-  var items = ["Rock-A-Bye Baby", "Twinkle Twinkle Little Star", "Hush Little Baby"];
+  List<String> items = [];
+  final DatabaseReference databaseRef = FirebaseDatabase.instance.ref();
 
   @override
   void initState() {
     super.initState();
+    fetchPlaylist();
   }
 
-  void setSong(String dropdownValue, String state) async {
+  Future<void> fetchPlaylist() async {
+    DataSnapshot snapshot = await databaseRef.child('music/playlist').get();
+    if (snapshot.exists) {
+      String playlist = snapshot.value as String;
+      setState(() {
+        items = playlist.split(',');
+      });
+    }
+  }
+
+  void setSong(String song, String state) async {
     try {
-      FlutterSecureStorage storage = const FlutterSecureStorage();
-      String? tok = await storage.read(key: "token");
-      String? d_id = await storage.read(key: "device_id");
-
-      if (tok == null || d_id == null) {
-        _showAlertDialog(context, 'Error', 'Token or Device ID is null');
-        return;
-      }
-
-      final response = await http.post(
-        Uri.parse('http://10.30.84.209:9000/song'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $tok'
-        },
-        body: jsonEncode(<String, String>{
-          'device_id': d_id,
-          'song': dropdownValue,
-          'state': state,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        print("Successful");
-      } else if (response.statusCode == 400) {
-        _showAlertDialog(context, 'Invalid Inputs!', 'Some problem with inputs');
-      } else if (response.statusCode == 402) {
-        _showAlertDialog(context, 'Invalid Inputs!', 'WRONG INPUT');
-      } else if (response.statusCode == 403) {
-        _showAlertDialog(context, 'Invalid Inputs!', 'You have not this Device ID');
-      } else {
-        throw Exception('Failed to create album.');
+      await databaseRef.child('music/playing').set(state == 'start' ? 1 : 0);
+      if (state == 'start') {
+        await databaseRef.child('music/current_playing').set(song);
       }
     } on Exception catch (e) {
-      print(e);
-    } catch (e) {
-      print(e);
+      _showAlertDialog(context, 'Error', e.toString());
     }
   }
 
@@ -84,19 +62,7 @@ class _MusicState extends State<Music> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Smart Cradle'),
-        actions: const [
-          //IconButton(
-            //onPressed: () async {
-              // Implement sign out functionality here
-            //},
-            //icon: const Icon(
-            //  Icons.logout,
-             // size: 30,
-            //),
-            //color: Colors.white, // Change the color as per your design
-          //),
-        ],
-        backgroundColor: const Color(0xFFB3CEDB), // Set the background color of the app bar
+        backgroundColor: const Color(0xFFB3CEDB),
       ),
       body: SafeArea(
         child: Column(
@@ -126,10 +92,10 @@ class _MusicState extends State<Music> {
                 ),
                 child: DropdownButton<String>(
                   value: dropdownValue,
-                  items: items.map((String items) {
+                  items: items.map((String item) {
                     return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
+                      value: item,
+                      child: Text(item),
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
@@ -164,8 +130,7 @@ class _MusicState extends State<Music> {
                   icon: const Icon(Icons.play_circle),
                   onPressed: () {
                     if (dropdownValue != null) {
-                      state = 'start';
-                      setSong(dropdownValue!, state!);
+                      setSong(dropdownValue!, 'start');
                     } else {
                       _showAlertDialog(context, 'No Song Selected', 'Please select a song to play.');
                     }
@@ -177,8 +142,7 @@ class _MusicState extends State<Music> {
                   icon: const Icon(Icons.stop),
                   onPressed: () {
                     if (dropdownValue != null) {
-                      state = 'stop';
-                      setSong(dropdownValue!, state!);
+                      setSong(dropdownValue!, 'stop');
                     } else {
                       _showAlertDialog(context, 'No Song Selected', 'Please select a song to stop.');
                     }
