@@ -7,7 +7,7 @@ class Camera extends StatelessWidget {
   static const route = '/camera';
 
   Future<void> _launchUrl() async {
-    final DatabaseReference urlStreamingRef = FirebaseDatabase.instance.ref().child('/url_streaming');
+    final DatabaseReference urlStreamingRef = FirebaseDatabase.instance.ref().child('/camera/url_streaming');
     final DatabaseEvent event = await urlStreamingRef.once();
     final String urlString = event.snapshot.value as String;
 
