@@ -13,11 +13,14 @@ class _MusicState extends State<Music> {
   String? dropdownValue;
   List<String> items = [];
   final DatabaseReference databaseRef = FirebaseDatabase.instance.ref();
+  bool isPlaying = false;
 
   @override
   void initState() {
     super.initState();
     fetchPlaylist();
+    fetchCurrentPlaying();
+    listenToPlayingStatus();
   }
 
   Future<void> fetchPlaylist() async {
@@ -28,6 +31,27 @@ class _MusicState extends State<Music> {
         items = playlist.split(',');
       });
     }
+  }
+
+  Future<void> fetchCurrentPlaying() async {
+    DataSnapshot snapshot = await databaseRef.child('music/current_playing').get();
+    if (snapshot.exists) {
+      String currentPlaying = snapshot.value as String;
+      setState(() {
+        dropdownValue = currentPlaying;
+      });
+    }
+  }
+
+  void listenToPlayingStatus() {
+    databaseRef.child('music/playing').onValue.listen((event) {
+      if (event.snapshot.exists) {
+        int playingStatus = event.snapshot.value as int;
+        setState(() {
+          isPlaying = playingStatus == 1;
+        });
+      }
+    });
   }
 
   void setSong(String song, String state) async {
@@ -119,6 +143,16 @@ class _MusicState extends State<Music> {
                   isExpanded: true,
                   dropdownColor: Colors.blue[50],
                 ),
+              ),
+            ),
+            Text(
+              isPlaying
+                  ? 'Playing: ${dropdownValue ?? 'No song selected'}'
+                  : 'Music is stopped',
+              style: TextStyle(
+                fontSize: 18,
+                color: isPlaying ? Colors.green : Colors.red,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Row(
