@@ -9,25 +9,29 @@ import '../pages/dashboard/dashboard.dart';
 class AuthService {
 
   Future<void> signup({
-    required String email,
-    required String password,
-    required BuildContext context
-  }) async {
-    
-    try {
+  required String email,
+  required String password,
+  required BuildContext context,
+}) async {
+  try {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
 
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password
-      );
+    // Send email verification
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await user.sendEmailVerification();
+    }
 
-      await Future.delayed(const Duration(seconds: 1));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => const Dashboard()
-        )
-      );
+    await Future.delayed(const Duration(seconds: 1));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => const Dashboard(),
+      ),
+    );
       
     } on FirebaseAuthException catch(e) {
       String message = '';
@@ -49,25 +53,31 @@ class AuthService {
   }
 
   Future<void> signin({
-    required String email,
-    required String password,
-    required BuildContext context
-  }) async {
-    
-    try {
+  required String email,
+  required String password,
+  required BuildContext context,
+}) async {
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
 
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password
+    // Check if email is verified
+    if (userCredential.user != null && !userCredential.user!.emailVerified) {
+      throw FirebaseAuthException(
+        code: 'email-not-verified',
+        message: 'Email is not verified. Please check your email inbox for verification link.',
       );
+    }
 
-      await Future.delayed(const Duration(seconds: 1));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => const Dashboard()
-        )
-      );
+    await Future.delayed(const Duration(seconds: 1));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => const Dashboard(),
+      ),
+    );
       
     } on FirebaseAuthException catch(e) {
       String message = '';
@@ -75,6 +85,8 @@ class AuthService {
         message = 'No user found for that email.';
       } else if (e.code == 'invalid-credential') {
         message = 'Wrong password provided for that user.';
+      }else{
+        message = e.code;
       }
        Fluttertoast.showToast(
         msg: message,
